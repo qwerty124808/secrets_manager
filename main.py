@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request
 import uvicorn
 from fastapi.openapi.docs import get_swagger_ui_html
 import service
+from models.shemas import Secret, GetSecret
 
 
 
@@ -14,28 +15,27 @@ async def read_docs():
 
 
 @app.post("/generate")
-async def generate(data: Request):
+async def generate(data: Secret):
     """
         принимает secret, password
         Return: secret url
     """
-    data = await data.json()
-    secret = data["secret"]
-    password = data["password"]
+    
+    secret = data.secret
+    password = data.password
     return service.generate(secret, password)
 
 
 @app.post("/secret/{secret_key}")
-async def secret(secret_key: str, data: Request):
+async def secret(secret_key: str, data: GetSecret):
     """ 
-        Возвращает секрет.
-        Принимает:- secret_key: str - id секрета
+        Возвращает секрет.\n
+        Принимает:- secret_key: str - id секрета, password\n
         Возвращает - данные конкретного секрета.
     """
-    data = await data.json()
-    password = data["password"]
+    password = data.password
     return service.get_secret(secret_key, password)
         
 
 if __name__ == "__main__":
-    uvicorn.run(app)
+    uvicorn.run(app, host="0.0.0.0", port=8001)

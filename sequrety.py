@@ -29,6 +29,7 @@ class StandardPBEStringEncryptor:
         return key[:8], key[8:]
 
     def decrypt(self, msg: str, password: str) -> str:
+        """ Расшифровка """
         password_bytes = password.encode('utf-8')
         msg_bytes = base64.b64decode(msg)
         salt = msg_bytes[: self.salt_size]
@@ -39,6 +40,7 @@ class StandardPBEStringEncryptor:
         return re.sub(r'[\x01-\x08]', '', text.decode())
 
     def encrypt(self, msg: str, password: str) -> str:
+        """ Шифровка PBEWithMD5AndDES """
         password_bytes = password.encode('utf-8')
         salt = os.urandom(self.salt_size)
         pad_num = self.salt_size - (len(msg) % self.salt_size)

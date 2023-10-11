@@ -12,14 +12,18 @@
 - python 3.7
 - fastapi 0.103.1
 - Mongo DB
-- 
+- pymongo
 - Docker
+- Docker-compose
+- pydantic
+- pytest
+- pycrypto
 
 ### Инструкция для развертывания проекта с использованием Docker:
 
 Клонирование проекта:
 ```
-git clone https://github.com/тут ваш гит
+git clone https://github.com/qwerty124808/secrets_manager
 ```
 Запуск:
 
@@ -30,7 +34,7 @@ pipenv shell
 
 Запустить команду, указанную ниже из корня проекта 
 ```
-sudo docker-compose up
+sudo docker-compose up -d
 ```
 
 Пример использования:
