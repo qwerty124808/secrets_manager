@@ -33,7 +33,7 @@ class StandardPBEStringEncryptor:
         password_bytes = password.encode('utf-8')
         msg_bytes = base64.b64decode(msg)
         salt = msg_bytes[: self.salt_size]
-        enc_text = msg_bytes[self.salt_size :]
+        enc_text = msg_bytes[self.salt_size:]
         (dk, iv) = self.get_derived_key(password_bytes, salt, self.iterations)
         crypter = DES.new(dk, DES.MODE_CBC, iv)
         text = crypter.decrypt(enc_text)
@@ -67,4 +67,3 @@ def decrypt(
     password: str
 ) -> str:
     return encryptor.decrypt(msg, password)
-
